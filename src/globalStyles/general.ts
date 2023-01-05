@@ -10,12 +10,29 @@ const general = StyleSheet.create({
   title: {
     fontSize: fonts.fontSize.title,
     color: colors.text,
-    marginBottom: 5
+    marginBottom: 5,
+    fontFamily: fonts.fontFamily.bold
   },
-  subtitle: {},
-  label: {},
-  text: {},
-  other: {}
+  subtitle: {
+    fontSize: fonts.fontSize.subtitle,
+    color: colors.text,
+    fontFamily: fonts.fontFamily.bold
+  },
+  label: {
+    fontSize: fonts.fontSize.label,
+    color: colors.text,
+    fontFamily: fonts.fontFamily.regular
+  },
+  text: {
+    fontSize: fonts.fontSize.text,
+    color: colors.text,
+    fontFamily: fonts.fontFamily.regular
+  },
+  other: {
+    fontSize: fonts.fontSize.other,
+    color: colors.text,
+    fontFamily: fonts.fontFamily.regular
+  }
 });
 
 export default general;

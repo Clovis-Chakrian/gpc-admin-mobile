@@ -1,6 +1,6 @@
 const fonts = {
   fontFamily: {
-    regular: 'Raleway',
+    regular: 'Raleway-Regular',
     bold: 'Raleway-Bold'
   },
   fontSize: {

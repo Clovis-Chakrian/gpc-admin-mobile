@@ -5,4 +5,10 @@ interface INoticeCard {
   deleteFunction: VoidFunction
 };
 
-export { INoticeCard };
+interface IPicker {
+  pickerOptions: string[],
+  selectedValue: string,
+  onSelectedValue: (option: string) => void
+};
+
+export { INoticeCard, IPicker };
