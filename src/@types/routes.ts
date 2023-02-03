@@ -5,11 +5,42 @@ import { CompositeScreenProps } from '@react-navigation/native';
 export type StackParamList = {
   Login: undefined,
   Home: undefined,
-  Config: undefined,
-  PickContact: undefined,
-  Messages: undefined,
-  CreateEvent: undefined,
-  CreateNotice: undefined
+  Config: {
+    token: string,
+    id: string,
+  },
+  PickContact: {
+    managerId: string
+  },
+  Messages: {
+    room: string,
+    managerId: string,
+    parentName: string,
+    relativeName: string,
+    schoolClass: string
+  },
+  CreateEvent: {
+    token: string
+  },
+  EditEvent: {
+    token: string,
+    id: string
+  },
+  CreateNotice: {
+    token: string
+  }
+  EditNotice: {
+    token: string,
+    id: string
+  },
+  CreateNews: {
+    token: string
+  },
+  EditAccount: {
+    token: string,
+    id: string
+  },
+  CreateParentsAccount: undefined
 };
 
 export type LoginProps = StackScreenProps<StackParamList, 'Login'>;
@@ -18,7 +49,12 @@ export type ConfigProps = StackScreenProps<StackParamList, 'Config'>;
 export type PickContactProps = StackScreenProps<StackParamList, 'PickContact'>;
 export type MessagesProps = StackScreenProps<StackParamList, 'Messages'>;
 export type CreateEventProps = StackScreenProps<StackParamList, 'CreateEvent'>;
+export type EditEventProps = StackScreenProps<StackParamList, 'EditEvent'>;
 export type CreateNoticeProps = StackScreenProps<StackParamList, 'CreateNotice'>;
+export type EditNoticeProps = StackScreenProps<StackParamList, 'EditNotice'>;
+export type CreateNewsProps = StackScreenProps<StackParamList, 'CreateNews'>;
+export type CreateParentsAccountProps = StackScreenProps<StackParamList, 'CreateParentsAccount'>;
+export type EditAccountProps = StackScreenProps<StackParamList, 'EditAccount'>;
 
 export type BottomTabsParamList = {
   Notices: undefined
