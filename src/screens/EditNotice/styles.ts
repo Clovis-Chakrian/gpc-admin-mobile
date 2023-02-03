@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 5
   },
-  createNoticeButton: {
+  editNoticeButton: {
     width: Dimensions.get('window').width -40,
     height: 65,
     backgroundColor: colors.secondary[1],

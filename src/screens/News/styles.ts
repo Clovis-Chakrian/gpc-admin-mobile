@@ -1,9 +1,9 @@
-import { Dimensions, StyleSheet } from "react-native";
-import { general } from "../../globalStyles";
+import { Dimensions, StyleSheet } from 'react-native';
+import { general } from '../../globalStyles';
 
 const styles = StyleSheet.create({
   ...general,
-  createNoticeButton: {
+  createNewsButton: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-end',

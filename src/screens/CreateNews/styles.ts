@@ -3,25 +3,29 @@ import { colors, general } from '../../globalStyles';
 
 const styles = StyleSheet.create({
   ...general,
-  textInput: {
-    width: Dimensions.get('window').width -40,
-    height: 46,
-    backgroundColor: colors.primary[0],
+  input: {
+    width: Dimensions.get('window').width - 40,
+    height: 65,
     borderRadius: 10,
+    backgroundColor: colors.primary[0],
     paddingHorizontal: 5
   },
-  inputView: {
-    marginBottom: 15
-  },
-  multilineTextInput: {
-    width: Dimensions.get('window').width -40,
-    height: 208,
+  imageInput: {
+    width: 327,
+    height: 202,
     borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.primary[0],
-    padding: 10
+    marginBottom: 10
   },
-  createEventButton: {
-    width: Dimensions.get('window').width -40,
+  image: {
+    width: 327,
+    height: 202,
+    borderRadius: 10,
+  },
+  addNewsButton: {
+    width: Dimensions.get('window').width - 40,
     height: 65,
     backgroundColor: colors.secondary[1],
     borderRadius: 10,
@@ -29,13 +33,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   showDatePickerButton: {
-    width: Dimensions.get('window').width -40,
+    width: Dimensions.get('window').width - 40,
     height: 46,
     backgroundColor: colors.primary[0],
     borderRadius: 10,
     marginTop: 5,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 60
   }
 });
 

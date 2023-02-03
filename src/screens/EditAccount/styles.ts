@@ -1,34 +1,29 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { general, colors } from '../../globalStyles';
+import { colors, general } from '../../globalStyles';
 
 const styles = StyleSheet.create({
   ...general,
-  textInput: {
+  input: {
     width: Dimensions.get('window').width -40,
-    height: 46,
+    height: 65,
     backgroundColor: colors.primary[0],
-    borderRadius: 10,
     paddingHorizontal: 5,
+    borderRadius: 10
   },
   inputView: {
-    marginBottom: 15,
-    marginTop: 20
+    marginBottom: 20
   },
-  multilineTextInput: {
-    width: Dimensions.get('window').width -40,
-    height: 208,
-    borderRadius: 10,
-    backgroundColor: colors.primary[0],
-    paddingHorizontal: 10,
-    paddingTop: 5
-  },
-  createNoticeButton: {
+  saveCredentialButton: {
     width: Dimensions.get('window').width -40,
     height: 65,
     backgroundColor: colors.secondary[1],
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  inputDifferentPass: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.secondary[2]
   }
 });
 

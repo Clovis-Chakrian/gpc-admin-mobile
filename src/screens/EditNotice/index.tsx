@@ -1,32 +1,43 @@
-import { useRef, useState } from 'react';
-import { View, Text, KeyboardAvoidingView, TouchableOpacity, TextInput, Alert, ActivityIndicator, Keyboard } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, KeyboardAvoidingView, TouchableOpacity, TextInput, Alert, ActivityIndicator } from 'react-native';
 import { colors } from '../../globalStyles';
 import * as api from '../../services/api';
 import styles from './styles';
-import { CreateNoticeProps } from '../../@types/routes';
+import { EditNoticeProps } from '../../@types/routes';
 import { Picker } from '../../components';
+import { INotice } from '../../@types/interfaces';
 
-function CreateNotice({ route, navigation }: CreateNoticeProps) {
+function EditNotice({ route, navigation }: EditNoticeProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedValue, setSelectedValue] = useState('1A-DS');
-  const pickerOptions = ['1A-DS', '1B-DS', '1A-MULT', '1B-MULT', '2A-DS', '2B-DS', '2A-MULT', '2B-MULT', '3A-DS', '3B-DS', '3A-MULT', '3B-MULT']
-  const [isLoading, setIsloading] = useState(false);
-  const viewRef = useRef<any>();
+  const pickerOptions = ['1A-DS', '1B-DS', '1A-MULT', '1B-MULT', '2A-DS', '2B-DS', '2A-MULT', '2B-MULT', '3A-DS', '3B-DS', '3A-MULT', '3B-MULT'];
+  const [notice, setNotice] = useState<INotice | null>();
+  // const [isLoading, setIsloading] = useState(false);
 
-  Keyboard.addListener('keyboardDidHide', () => {
-    viewRef.current?.focus()
-  })
+  async function handleGetNotice() {
+    await api.http.get(`/notice/${route.params.id}`).then(resp => {
+      if (resp.status != 200) {
+        Alert.alert('Atenção!', resp.data.message);
+        navigation.goBack(); 
+        return
+      };
+      const data: INotice = resp.data;
+
+      setNotice(data);
+      setDescription(data.description);
+      setTitle(data.title);
+      setSelectedValue(data.schoolClass);
+    })
+  };
 
   function handleOnSelectedValue(value: string) {
     setSelectedValue(value)
   };
 
-  async function handleCreateNotice() {
-    setIsloading(true);
+  async function handleEditNotice() {
     if (title == '' || description == '') {
       Alert.alert('Atenção!', 'Você deve preencher todos os campos para poder criar um aviso.');
-      setIsloading(false);
       return
     };
 
@@ -36,7 +47,7 @@ function CreateNotice({ route, navigation }: CreateNoticeProps) {
       schoolClass: selectedValue
     };
 
-    await api.http.post('/create-notice', {
+    await api.http.patch(`/update-notice/${route.params.id}`, {
       ...data,
     }, {
       headers: {
@@ -51,16 +62,20 @@ function CreateNotice({ route, navigation }: CreateNoticeProps) {
     });
   }
 
-  if (isLoading) {
+  useEffect(() => {
+    handleGetNotice();
+  }, []);
+
+  if (!notice) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator size={'large'} color={colors.primary[1]} />
+        <ActivityIndicator size={'large'} color={colors.primary[1]}/>
       </View>
     );
   }
 
   return (
-    <View ref={viewRef} style={[styles.container, { justifyContent: 'center' }]}>
+    <KeyboardAvoidingView style={[styles.container, { justifyContent: 'center' }]}>
       <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 30 }}>
         <Picker
           selectedValue={selectedValue}
@@ -73,6 +88,7 @@ function CreateNotice({ route, navigation }: CreateNoticeProps) {
           <TextInput
             placeholder='Digite o nome do aviso aqui'
             style={styles.textInput}
+            value={title}
             onChangeText={text => setTitle(text)}
           />
         </View>
@@ -82,6 +98,7 @@ function CreateNotice({ route, navigation }: CreateNoticeProps) {
           <TextInput
             placeholder='Escreva uma descrição do aviso aqui'
             multiline
+            value={description}
             style={styles.multilineTextInput}
             textAlignVertical='top'
             onChangeText={text => setDescription(text)}
@@ -90,12 +107,12 @@ function CreateNotice({ route, navigation }: CreateNoticeProps) {
       </View>
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <TouchableOpacity onPress={handleCreateNotice} style={styles.createNoticeButton}>
-          <Text style={[styles.subtitle, { color: colors.primary[0] }]}>Criar aviso</Text>
+        <TouchableOpacity onPress={handleEditNotice} style={styles.editNoticeButton}>
+          <Text style={[styles.subtitle, { color: colors.primary[0] }]}>Editar aviso</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
-export default CreateNotice;
+export default EditNotice;

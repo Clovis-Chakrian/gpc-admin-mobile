@@ -1,16 +1,32 @@
-import { View, Text, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native';
-import { colors } from '../../globalStyles';
-import DateTimePicker, { DateTimePickerAndroid, DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import * as api from '../../services/api';
-import {CreateEventProps} from '../../@types/routes';
-
-import styles from './styles';
 import { useEffect, useState } from 'react';
+import { View, Text, Alert, KeyboardAvoidingView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { DateTimePickerEvent, DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { EditEventProps } from '../../@types/routes';
+import * as api from '../../services/api';
+import { colors } from '../../globalStyles';
+import styles from './styles';
+import { IEvents } from '../../@types/interfaces';
 
-function CreateEvent({ navigation, route }: CreateEventProps) {
+
+function EditEvent({ navigation, route }: EditEventProps) {
   const [date, setDate] = useState<Date>(new Date());
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [event, setEvent] = useState<IEvents | null>()
+
+  async function handleGetSelectedEvent() {
+    await api.http.get(`/event/${route.params.id}`).then((resp) => {
+      const data: IEvents = resp.data;
+      setEvent(data);
+      setTitle(data.title);
+      setDescription(data.description);
+      setDate(new Date(data.date));
+    }).catch((err) => {
+      console.log(err);
+      Alert.alert('Atenção!', 'Houve um erro ao buscar o evento para editar, tente novamente mais tarde.');
+      navigation.goBack();
+    });
+  };
 
   const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate;
@@ -26,7 +42,7 @@ function CreateEvent({ navigation, route }: CreateEventProps) {
     });
   };
 
-  async function handleCreateEvent() {
+  async function handleEditEvent() {
     if (title == '' || description == '') {
       Alert.alert('Atenção!', 'Você deve preencher todos os campos para poder criar um aviso.');
       return
@@ -38,20 +54,24 @@ function CreateEvent({ navigation, route }: CreateEventProps) {
       date: date.toISOString()
     };
 
-    await api.http.post('/event', {
+    await api.http.patch(`/event/${route.params.id}`, {
       ...data,
     }, {
       headers: {
         'x-access-token': route.params.token
       }
     }).then(() => {
-      Alert.alert('Sucesso!', 'Evento criado com sucesso!');
+      Alert.alert('Sucesso!', 'Evento editado com sucesso!');
       navigation.goBack();
     }).catch((err) => {
       console.log(err);
-      Alert.alert('Atenção!', 'Houve um erro interno da aplicação. Tente novamente mais tarde.')
+      Alert.alert('Atenção!', 'Houve um erro interno da aplicação. Tente novamente mais tarde.');
     });
   }
+
+  useEffect(() => {
+    handleGetSelectedEvent();
+  }, []);
 
   // For some reason, .toLocaleDateString() function doesn't work here, so i writed a function to format to pt-BR format.
   function showFormatedDate(unformatedDate: Date) {
@@ -65,6 +85,14 @@ function CreateEvent({ navigation, route }: CreateEventProps) {
     return formatedDate;
   }
 
+  if (!event) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size={'large'} color={colors.primary[1]} />
+      </View>
+    );
+  };
+
   return (
     <KeyboardAvoidingView style={[styles.container, { justifyContent: 'center' }]}>
       <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 30 }}>
@@ -73,6 +101,7 @@ function CreateEvent({ navigation, route }: CreateEventProps) {
           <TextInput
             placeholder='Digite o nome do evento aqui'
             style={styles.textInput}
+            value={title}
             onChangeText={text => setTitle(text)}
           />
         </View>
@@ -84,6 +113,7 @@ function CreateEvent({ navigation, route }: CreateEventProps) {
             multiline
             style={styles.multilineTextInput}
             textAlignVertical='top'
+            value={description}
             onChangeText={text => setDescription(text)}
           />
         </View>
@@ -97,12 +127,12 @@ function CreateEvent({ navigation, route }: CreateEventProps) {
       </View>
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <TouchableOpacity onPress={handleCreateEvent} style={styles.createEventButton}>
-          <Text style={[styles.subtitle, { color: colors.primary[0] }]}>Criar evento</Text>
+        <TouchableOpacity onPress={handleEditEvent} style={styles.createEventButton}>
+          <Text style={[styles.subtitle, { color: colors.primary[0] }]}>Editar evento</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-export default CreateEvent;
+export default EditEvent;
