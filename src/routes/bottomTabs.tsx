@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 import { BottomTabsParamList } from '../@types/routes';
 
-import { Notices, Agenda, Schedules } from "../screens";
+import { Notices, Agenda, Schedules, Solicitations, News } from "../screens";
 import { colors } from "../globalStyles";
 
 const BottomTabs = createBottomTabNavigator();
@@ -40,7 +40,7 @@ const BottonTabsRoutes = () => {
       />
 
       <BottomTabs.Screen
-        component={Notices}
+        component={Solicitations}
         name="Solicitações"
         options={{
           tabBarIcon: () => <Ionicons name="folder-open-outline" color={colors.secondary[0]} size={28} />,
@@ -48,7 +48,7 @@ const BottonTabsRoutes = () => {
       />
 
       <BottomTabs.Screen
-        component={Notices}
+        component={News}
         name="Notícias"
         options={{
           tabBarIcon: () => <Ionicons name="newspaper-outline" color={colors.secondary[0]} size={28} />,
