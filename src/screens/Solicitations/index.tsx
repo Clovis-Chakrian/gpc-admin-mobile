@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Alert, ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { IFinishedSolicitation, ISolicitation, ISolicitationApi } from '../../@types/interfaces';
+import { ISolicitationApi } from '../../@types/interfaces';
 import { SolicitationCard, AlternativeSolicitationCard, Picker } from '../../components';
 import { colors } from '../../globalStyles';
 import * as api from '../../services/api';
@@ -11,7 +11,7 @@ import styles from './styles';
 function Solicitations() {
   const [selectedValue, setSelectedValue] = useState('Declaração de matrícula');
   const [solicitations, setSolicitations] = useState([])
-  const pickerOptions = ['Declaração de matrícula', 'Ficha-19'];
+  const pickerOptions = ['Declaração de matrícula', 'Ficha 19', 'Declaração de frequência'];
   const [isLoading, setIsLoading] = useState(true);
 
   function handleOnSelectedValue(value: string) {
@@ -129,7 +129,7 @@ function Solicitations() {
         onSelectedValue={(option) => handleOnSelectedValue(option)}
       />
 
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 20 }]}>
         {
           solicitations.length === 0 ?
             <View style={{ paddingHorizontal: 10, marginTop: 70, alignItems: 'center', justifyContent: 'center' }}>

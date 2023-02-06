@@ -22,7 +22,7 @@ export default function App() {
     'Raleway-Bold': require('./src/assets/fonts/Raleway-Bold.ttf'),
   });
 
-  if (!fontsLoaded || token == undefined) {
+  if (!fontsLoaded ) { //|| token == undefined
     return null;
   };
 

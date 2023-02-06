@@ -27,110 +27,105 @@ const StackRoutes = ({ isLogged }: RoutesProps) => {
         initialRouteName={isLogged ? 'Home' : 'Login'}
       >
 
+        <Stack.Screen
+          name="Home"
+          component={BottonTabsRoutes}
+          options={{
+            header: Header
+          }}
+        />
 
-        {
-          isLogged ?
-            <>
-              <Stack.Screen
-                name="Home"
-                component={BottonTabsRoutes}
-                options={{
-                  header: Header
-                }}
-              />
+        <Stack.Screen
+          name="Config"
+          component={Config}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="Config"
-                component={Config}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="EditAccount"
+          component={EditAccount}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="EditAccount"
-                component={EditAccount}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
-
-              <Stack.Screen
-                name="CreateParentsAccount"
-                component={CreateParentsAccount}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="CreateParentsAccount"
+          component={CreateParentsAccount}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
 
-              <Stack.Screen
-                name="CreateNews"
-                component={CreateNews}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="CreateNews"
+          component={CreateNews}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
 
-              <Stack.Screen
-                name="PickContact"
-                component={PickContact}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="PickContact"
+          component={PickContact}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="Messages"
-                component={Messages}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="Messages"
+          component={Messages}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="CreateEvent"
-                component={CreateEvent}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="CreateEvent"
+          component={CreateEvent}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="EditEvent"
-                component={EditEvent}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="EditEvent"
+          component={EditEvent}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="CreateNotice"
-                component={CreateNotice}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
+        <Stack.Screen
+          name="CreateNotice"
+          component={CreateNotice}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-              <Stack.Screen
-                name="EditNotice"
-                component={EditNotice}
-                options={{
-                  header: AlternativeHeader
-                }}
-              />
-            </>
-            :
+        <Stack.Screen
+          name="EditNotice"
+          component={EditNotice}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
 
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerShown: false
-              }}
-            />
-        }
+
+
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false
+          }}
+        />
 
 
       </Stack.Navigator>

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GPG Gestão",
-    "slug": "GPC Gestão",
+    "name": "GPC Gestão",
+    "slug": "gpc-admin-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
