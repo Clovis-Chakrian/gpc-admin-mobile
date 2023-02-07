@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert, ActivityIndicator, Keyboard } from 'react-native';
 import { colors, fonts } from '../../../globalStyles';
 import { Ionicons } from '@expo/vector-icons';
 import * as api from '../../../services/api';
@@ -41,6 +41,7 @@ function Messages({ navigation, route }: MessagesProps) {
       room: route.params.room
     });
     setMessageInput('');
+    Keyboard.dismiss();
   }
 
   useEffect(() => {
@@ -87,8 +88,8 @@ function Messages({ navigation, route }: MessagesProps) {
               value={messageInput}
             />
           </View>
-          <TouchableOpacity style={styles.sendMessageButton} onPress={handleSendMessage}>
-            <Ionicons name='send-outline' color={colors.secondary[0]} size={24} />
+          <TouchableOpacity style={styles.sendMessageButton} disabled={messageInput === '' ? true : false} onPress={handleSendMessage}>
+            <Ionicons name='send-outline' color={ messageInput === '' ? '#616161' : colors.secondary[0]} size={24} />
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </View>
