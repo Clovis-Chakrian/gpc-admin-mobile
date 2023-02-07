@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { View, Text, Alert, ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -13,6 +14,18 @@ function Solicitations() {
   const [solicitations, setSolicitations] = useState([])
   const pickerOptions = ['Declaração de matrícula', 'Ficha 19', 'Declaração de frequência'];
   const [isLoading, setIsLoading] = useState(true);
+  const [token, setToken] = useState('');
+
+  async function getToken() {
+    await AsyncStorage.getItem('token').then((token) => {
+      if (token) {
+        setToken(token);
+      }
+    }).catch(err => {
+      console.error(err);
+      Alert.alert('Erro!', 'Houve um erro ao conseguir sua identificação, tente fechar e abrir o app.');
+    });
+  }
 
   function handleOnSelectedValue(value: string) {
     setSelectedValue(value);
@@ -48,6 +61,10 @@ function Solicitations() {
 
     await api.http.patch(`/solicitation/${id}`, {
       ...data
+    }, {
+      headers: {
+        'x-access-token': token
+      }
     }).then(resp => {
       switch (resp.status) {
         case 200:
@@ -81,7 +98,11 @@ function Solicitations() {
       setIsLoading(false);
     }
 
-    await api.http.delete(`/solicitation/${id}`).then(resp => {
+    await api.http.delete(`/solicitation/${id}`, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then(resp => {
       switch (resp.status) {
         case 200:
           Alert.alert('Sucesso!', 'Solicitação deletada com sucesso!');

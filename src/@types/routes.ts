@@ -28,11 +28,12 @@ export type StackParamList = {
     id: string
   },
   CreateNotice: {
-    token: string
+    token: string,
+    selectedSchoolClass: string
   }
   EditNotice: {
     token: string,
-    id: string
+    id: string,
   },
   CreateNews: {
     token: string
@@ -41,7 +42,9 @@ export type StackParamList = {
     token: string,
     id: string
   },
-  CreateParentsAccount: undefined
+  CreateParentsAccount: {
+    token: string
+  }
 };
 
 export type LoginProps = StackScreenProps<StackParamList, 'Login'>;

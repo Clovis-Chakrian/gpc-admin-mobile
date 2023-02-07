@@ -7,13 +7,26 @@ import * as api from '../../services/api';
 import { Picker } from '../../components';
 import { ISchedule } from '../../@types/interfaces';
 import { colors } from '../../globalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Schedules() {
   const [loadingFile, setLoadingFile] = useState<boolean>(true);
   const [schedule, setSchedule] = useState<ISchedule>();
   const [selectedValue, setSelectedValue] = useState('1A-DS');
   const pickerOptions = ['1A-DS', '1B-DS', '1A-MULT', '1B-MULT', '2A-DS', '2B-DS', '2A-MULT', '2B-MULT', '3A-DS', '3B-DS', '3A-MULT', '3B-MULT'];
+  const [token, setToken] = useState('');
 
+  async function getToken() {
+    await AsyncStorage.getItem('token').then((token) => {
+      if (token) {
+        setToken(token);
+      }
+    }).catch(err => {
+      console.error(err);
+      Alert.alert('Erro!', 'Houve um erro ao conseguir sua identificação, tente fechar e abrir o app.');
+    });
+  }
+  
   function handleOnSelectedValue(value: string) {
     setSelectedValue(value)
   };
@@ -32,7 +45,8 @@ function Schedules() {
         } as any);
         await api.http.patch(`/schedule/${selectedValue}`, data, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'x-access-token': token
           }
         }).then(res => {
           switch (res.status) {

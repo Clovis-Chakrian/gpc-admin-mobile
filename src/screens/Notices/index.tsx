@@ -12,7 +12,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 function Notices({ route, navigation }: HomeProps) {
   const pickerOptions = ['1A-DS', '1B-DS', '1A-MULT', '1B-MULT', '2A-DS', '2B-DS', '2A-MULT', '2B-MULT', '3A-DS', '3B-DS', '3A-MULT', '3B-MULT']
-  const [selectedValue, setSelectedValue] = useState(pickerOptions[0]);
+  const [selectedValue, setSelectedValue] = useState('');
   const [notices, setNotices] = useState<INotice[] | []>([]);
   const [token, setToken] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,10 @@ function Notices({ route, navigation }: HomeProps) {
   }
 
   async function handleNavigateToCreateNotice() {
-    navigation.navigate('CreateNotice', { token });
+    navigation.navigate('CreateNotice', {
+      token,
+      selectedSchoolClass: selectedValue
+    });
   };
 
   async function getNotices() {
@@ -62,20 +65,16 @@ function Notices({ route, navigation }: HomeProps) {
   };
 
   useEffect(() => {
+    setSelectedValue(pickerOptions[0]);
+    getNotices();
     getToken()
   }, [])
 
-  useEffect(() => {
-    setIsLoading(true);
-    getNotices();
-  }, [selectedValue]);
-
   useFocusEffect(
     React.useCallback(() => {
-      setSelectedValue(pickerOptions[0]);
       setIsLoading(true);
       getNotices();
-    }, [])
+    }, [selectedValue])
   );
 
   if (isLoading) {

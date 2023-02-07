@@ -37,8 +37,12 @@ function Login({ navigation, route }: LoginProps) {
           Alert.alert('Atenção', 'houve um erro ao salvar suas credenciais de login, tente novamente mais tarde.');
           return
         });
-        handleGetPushToken(res.data.id);
-        navigation.navigate('Home');
+        handleGetPushToken(res.data.id).then(() => {
+          navigation.navigate('Home');
+        }).catch(err => {
+          console.log(err);
+          Alert.alert('Erro!', 'Houve um erro ao fazer login.')
+        })
       }).catch((err) => {
         console.log(err);
         Alert.alert('Atenção', 'houve um erro ao salvar suas credenciais de login, tente novamente mais tarde.');
@@ -61,7 +65,7 @@ function Login({ navigation, route }: LoginProps) {
         lightColor: '#FF231F7C',
       });
     }
-    
+
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
@@ -83,47 +87,45 @@ function Login({ navigation, route }: LoginProps) {
     await api.http.post('/push/expo', {
       ...data
     });
-
-    return token;
   };
 
-return (
-  <View style={[styles.container, styles.homeContainer]}>
-    <View style={{ flex: 2 }}>
-      <Image source={logo} style={styles.logo} />
-    </View>
+  return (
+    <View style={[styles.container, styles.homeContainer]}>
+      <View style={{ flex: 2 }}>
+        <Image source={logo} style={styles.logo} />
+      </View>
 
-    <View style={{ flex: 1 }}>
-      <Text style={[styles.title, { color: '#FFF', width: 239, textAlign: 'center' }]}>Olá, bem vindo de volta, gestor(a)!</Text>
-    </View>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.title, { color: '#FFF', width: 239, textAlign: 'center' }]}>Olá, bem vindo de volta, gestor(a)!</Text>
+      </View>
 
-    <View style={styles.inputsView}>
-      <Text style={[styles.label, { color: '#FFF' }]}>Email</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder='email@provedor.com'
-        autoCapitalize='none'
-        keyboardType='email-address'
-        onChangeText={text => setEmail(text)}
-      />
+      <View style={styles.inputsView}>
+        <Text style={[styles.label, { color: '#FFF' }]}>Email</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder='email@provedor.com'
+          autoCapitalize='none'
+          keyboardType='email-address'
+          onChangeText={text => setEmail(text)}
+        />
 
-      <Text style={[styles.label, { color: '#FFF', marginTop: 10 }]}>Senha</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder='********'
-        secureTextEntry
-        caretHidden
-        onChangeText={text => setPassword(text)}
-      />
-    </View>
+        <Text style={[styles.label, { color: '#FFF', marginTop: 10 }]}>Senha</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder='********'
+          secureTextEntry
+          caretHidden
+          onChangeText={text => setPassword(text)}
+        />
+      </View>
 
-    <View style={{ flex: 1 }}>
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={[styles.subtitle, { color: '#FFF' }]}>Entrar</Text>
-      </TouchableOpacity>
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={[styles.subtitle, { color: '#FFF' }]}>Entrar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-  </View>
-);
+  );
 };
 
 export default Login;

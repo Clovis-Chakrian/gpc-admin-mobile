@@ -6,7 +6,9 @@ import { ConfigProps } from '../../@types/routes';
 
 function Config({ navigation, route }: ConfigProps) {
   function handleGoToCreateParentsAccount() {
-    navigation.navigate('CreateParentsAccount');
+    navigation.navigate('CreateParentsAccount', {
+      token: route.params.token
+    });
   };
 
   function handleGoToEditAccount() {
