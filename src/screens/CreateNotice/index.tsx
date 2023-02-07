@@ -9,7 +9,7 @@ import { Picker } from '../../components';
 function CreateNotice({ route, navigation }: CreateNoticeProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedValue, setSelectedValue] = useState('1A-DS');
+  const [selectedValue, setSelectedValue] = useState(route.params.selectedSchoolClass);
   const pickerOptions = ['1A-DS', '1B-DS', '1A-MULT', '1B-MULT', '2A-DS', '2B-DS', '2A-MULT', '2B-MULT', '3A-DS', '3B-DS', '3A-MULT', '3B-MULT']
   const [isLoading, setIsloading] = useState(false);
   const viewRef = useRef<any>();
