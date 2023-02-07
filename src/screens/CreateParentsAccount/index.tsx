@@ -73,6 +73,10 @@ function CreateParentsAccount({ route, navigation }: CreateParentsAccountProps) 
 
     await api.http.post('/signup-parent', {
       ...data
+    }, {
+      headers: {
+        'x-access-token': route.params.token
+      }
     }).then(resp => {
       switch (resp.status) {
         case 500:
