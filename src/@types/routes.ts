@@ -10,7 +10,8 @@ export type StackParamList = {
     id: string,
   },
   PickContact: {
-    managerId: string
+    managerId: string,
+    token: string
   },
   Messages: {
     room: string,

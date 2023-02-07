@@ -26,6 +26,9 @@ function PickContact({ navigation, route }: PickContactProps) {
     await api.http.get('/parents', {
       params: {
         schoolClass: selectedValue
+      },
+      headers: {
+        'x-access-token': route.params.token
       }
     }).then(resp => {
       setParents(resp.data);

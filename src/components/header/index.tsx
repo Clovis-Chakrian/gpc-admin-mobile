@@ -10,7 +10,8 @@ const Logo = require('../../assets/logoGp.png')
 
 const Header = ({ navigation, route }: StackHeaderProps) => {
   const [managerId, setManagerId] = useState('');
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState('');
+
   function handleGoToConfig() {
     navigation.navigate('Config', {
       token,
@@ -19,7 +20,10 @@ const Header = ({ navigation, route }: StackHeaderProps) => {
   }
 
   function handleGoToChat() {
-    navigation.navigate('PickContact', { managerId })
+    navigation.navigate('PickContact', {
+      managerId,
+      token
+    });
   }
 
   async function getManagerId() {

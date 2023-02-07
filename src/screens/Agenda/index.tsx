@@ -93,9 +93,15 @@ function Agenda({ navigation, route }: HomeProps) {
   useFocusEffect(
     React.useCallback(() => {
       setSelectedMonth(0);
+    }, [])
+  )
+
+  useFocusEffect(
+    React.useCallback(() => {
+      //setSelectedMonth(0);
       setIsLoading(true);
       getEvents();
-    }, [])
+    }, [selectedMonth])
   )
 
   if (isLoading) {

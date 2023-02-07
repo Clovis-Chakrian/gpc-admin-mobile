@@ -18,9 +18,9 @@ const ContactCard: React.FC<IContactCard> = ({
         <Text style={[styles.other, { color: '#616161' }]}>{relativeSchoolClass}</Text>
       </View>
 
-      <View>
+      {/* <View>
         <Ionicons name='ellipse' size={14} color={colors.secondary[1]} />
-      </View>
+      </View> */}
     </View>
   );
 };
