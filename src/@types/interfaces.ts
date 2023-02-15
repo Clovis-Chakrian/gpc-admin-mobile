@@ -48,13 +48,14 @@ interface IMessage {
 
 interface IRelative {
   fullName: string,
-  schoolClass: string
+  schoolClass: string,
+  kinship: string,
 }
 
 interface IParent {
   id: string,
   fullName: string,
-  kinship: string,
+  
   //email: string,
   relatives: IRelative[],
 };
@@ -103,27 +104,34 @@ interface ISolicitationApi {
   schoolClass: string,
   solicitatedAt: Date,
   finishedAt: Date
-}
+};
 
 interface INewsImage {
   id: string,
   imageUrl: string,
   imageId: string
-}
+};
 
 interface INewsApi {
   id: string,
   title: string,
   url: string,
   image: INewsImage
-}
+};
 
 interface INews {
   title: string,
   url: string,
   imageUrl: string,
   deleteFunction: () => void
-}
+};
+
+interface IAuthParentCard {
+  parentName: string,
+  relatives: IRelative[],
+  authFunction: () => void
+};
+
 
 export {
   INoticeCard,
@@ -139,5 +147,6 @@ export {
   IFinishedSolicitation,
   ISolicitationApi,
   INews,
-  INewsApi
+  INewsApi,
+  IAuthParentCard
 };

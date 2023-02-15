@@ -16,13 +16,24 @@ function Config({ navigation, route }: ConfigProps) {
       id: route.params.id,
       token: route.params.token
     });
-  }
+  };
+
+  function handleGoToAuthParents() {
+    navigation.navigate('AuthenticateParents', {
+      token: route.params.token
+    });
+  };
 
   return (
     <View style={[styles.container, styles.configContainer]}>
       <TouchableOpacity style={styles.configButtons} onPress={handleGoToCreateParentsAccount}>
         <Ionicons name='person-add-outline' size={65} color={colors.secondary[0]} />
         <Text style={[styles.other, styles.configButtonsText]}>Criar conta para um pai</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.configButtons} onPress={handleGoToAuthParents}>
+        <Ionicons name='ios-checkmark-circle-outline' size={65} color={colors.secondary[0]} />
+        <Text style={[styles.other, styles.configButtonsText]}>Autorizar cadastro de responsável</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.configButtons} onPress={handleGoToEditAccount}>

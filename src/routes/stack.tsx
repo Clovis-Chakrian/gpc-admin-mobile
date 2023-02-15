@@ -3,7 +3,7 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { StackParamList } from '../@types/routes';
-import { Login, Config, PickContact, Messages, CreateEvent, CreateNotice, EditEvent, EditNotice, CreateParentsAccount, CreateNews, EditAccount } from '../screens';
+import { Login, Config, PickContact, Messages, CreateEvent, CreateNotice, EditEvent, EditNotice, CreateParentsAccount, CreateNews, EditAccount, AuthenticateParents } from '../screens';
 import { Header, AlternativeHeader } from '../components';
 
 import BottonTabsRoutes from './bottomTabs';
@@ -54,6 +54,14 @@ const StackRoutes = ({ isLogged }: RoutesProps) => {
         <Stack.Screen
           name="CreateParentsAccount"
           component={CreateParentsAccount}
+          options={{
+            header: AlternativeHeader
+          }}
+        />
+
+        <Stack.Screen
+          name="AuthenticateParents"
+          component={AuthenticateParents}
           options={{
             header: AlternativeHeader
           }}

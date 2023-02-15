@@ -5,6 +5,7 @@ import ContactCard from "./contactCard";
 import { SolicitationCard, AlternativeSolicitationCard } from "./solicitationCard";
 import MessageContainer from "./messageContainer";
 import NewsCard from "./newsCard";
+import AuthParentCard from "./authParentCard";
 
 export {
   NoticeCard,
@@ -15,5 +16,6 @@ export {
   SolicitationCard,
   AlternativeSolicitationCard,
   MessageContainer,
-  NewsCard
+  NewsCard,
+  AuthParentCard
 };

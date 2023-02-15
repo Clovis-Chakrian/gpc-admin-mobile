@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "823450905498",
+    "project_id": "eteginasiopec",
+    "storage_bucket": "eteginasiopec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823450905498:android:04f6c39b17abfcce63e823",
+        "android_client_info": {
+          "package_name": "com.clovischakrian.gpcadminmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823450905498-erfvvejikm4boat2n44ghmn45r4sk6bq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGTfRs6eny2B4sJ1kMcEBecua3fKpDCBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823450905498-erfvvejikm4boat2n44ghmn45r4sk6bq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

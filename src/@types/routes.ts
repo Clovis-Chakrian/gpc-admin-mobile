@@ -44,7 +44,10 @@ export type StackParamList = {
   },
   CreateParentsAccount: {
     token: string
-  }
+  },
+  AuthenticateParents: {
+    token: string
+  },
 };
 
 export type LoginProps = StackScreenProps<StackParamList, 'Login'>;
@@ -59,6 +62,7 @@ export type EditNoticeProps = StackScreenProps<StackParamList, 'EditNotice'>;
 export type CreateNewsProps = StackScreenProps<StackParamList, 'CreateNews'>;
 export type CreateParentsAccountProps = StackScreenProps<StackParamList, 'CreateParentsAccount'>;
 export type EditAccountProps = StackScreenProps<StackParamList, 'EditAccount'>;
+export type AuthenticateParentsProps = StackScreenProps<StackParamList, 'AuthenticateParents'>;
 
 export type BottomTabsParamList = {
   Notices: undefined

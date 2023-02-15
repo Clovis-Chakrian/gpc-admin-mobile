@@ -14,6 +14,7 @@ import News from "./News";
 import CreateParentsAccount from "./CreateParentsAccount";
 import CreateNews from "./CreateNews";
 import EditAccount from "./EditAccount";
+import AuthenticateParents from "./AuthenticateParents";
 
 export {
   Notices,
@@ -31,5 +32,6 @@ export {
   News,
   CreateParentsAccount,
   CreateNews,
-  EditAccount
+  EditAccount,
+  AuthenticateParents
 };
